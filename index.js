@@ -4,11 +4,11 @@ const sns = new AWS.SNS();
 
 exports.handler = async (event) => {
 	if (event.Records) {
-		console.log("this is event2", event.Records[0].dynamodb.NewImage);
+		console.log("this is event2", event.Records[0]);
 		await sns
 			.publish({
 				Subject: "Patient table changes",
-				Message: JSON.stringify(event.Records[0].dynamodb.NewImage), // TODO This is difficult to read when it gets to the email
+				Message: JSON.stringify(event.Records[0]), // TODO This is difficult to read when it gets to the email
 				TopicArn: process.env.TOPIC_ARN,
 			})
 			.promise();
